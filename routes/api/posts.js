@@ -65,4 +65,20 @@ router.delete('/:post_id', async function (req, res, next) {
   }
 });
 
+
+
+//@route POST api/posts/:post_id/vote/:direction
+//@desc update the likes of post
+
+router.post('/:post_id/vote/:direction', async function(req, res, next) {
+  try {
+    let delta = req.params.direction === "up" ? +1 : -1;
+    
+    const like = await Post.addLike(req.params.post_id, delta);
+
+    return res.json(like)
+  } catch (err) {
+    return next(err)
+  }
+})
 module.exports = router;
