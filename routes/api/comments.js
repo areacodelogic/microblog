@@ -12,7 +12,6 @@ const router = express.Router({mergeParams: true});
 router.get('/', async function (req, res, next) {
   try {
     
-    console.log(req)
     const comments = await Comment.getComments(req.params.post_id);
     return res.json(comments)
     
@@ -21,17 +20,20 @@ router.get('/', async function (req, res, next) {
   }
 })
 
+//@route POST /api/posts/:post_id/comments
+//@desc add a comment for a post
 
 
-
-
-
-
-
-
-
-
-
+router.post('/', async function (req, res, next) {
+  try {
+    
+    const comment = await Comment.addComment(req.body, req.params.post_id);
+    
+    return res.json({comment});
+  } catch (err) {
+    return next(err)
+  }
+})
 
 
 
