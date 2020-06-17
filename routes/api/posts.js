@@ -41,13 +41,25 @@ router.post('/', async function (req, res, next) {
   }
 });
 
-//@route POST api/posts
-//@desc add new post
+//@route PUT api/posts
+//@desc update post by id
 router.put('/:post_id', async function (req, res, next) {
   try {
     const post = await Post.updatePost(req.params.post_id, req.body);
 
     return res.json(post);
+  } catch (err) {
+    return next(err);
+  }
+});
+
+//@route DELETE api/posts/:post_id
+//@desc delete post by id
+
+router.delete('/:post_id', async function (req, res, next) {
+  try {
+    await Post.remove(req.params.post_id);
+    return res.json({ message: 'deleted' });
   } catch (err) {
     return next(err);
   }

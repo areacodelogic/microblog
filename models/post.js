@@ -112,6 +112,20 @@ class Post {
 
     return post;
   }
+
+  /** DELETE /[id]     delete existing post  */
+
+  static async remove(postId) {
+    const res = await db.query(
+      `DELETE FROM posts WHERE id = $1
+        RETURNING id`,
+      [postId]
+    );
+
+    if (res.rows.length === 0) {
+      throw new ExpressError(`There exists to post ${id}`, 404);
+    }
+  }
 }
 
 module.exports = Post;
