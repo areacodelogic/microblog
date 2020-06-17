@@ -45,7 +45,7 @@ class Post {
    *      }
    */
 
-  static async getPostDetails(id) {
+  static async getPostDetails(postId) {
     const res = await db.query(
       `SELECT p.id,
               p.title,
@@ -62,7 +62,7 @@ class Post {
               GROUP BY p.id 
               ORDER BY p.id 
               `,
-      [id]
+      [postId]
     );
     const details = res.rows[0];
 
@@ -79,19 +79,39 @@ class Post {
    *
    */
 
-   static async addPost(data) {
-     const res = await db.query(
-       `INSERT INTO posts (title, description, body)
+  static async addPost(data) {
+    const res = await db.query(
+      `INSERT INTO posts (title, description, body)
           VALUES ($1, $2, $3)
           RETURNING id, title, description, body, votes`,
-          [data.title, data.description, data.body]
-     );
+      [data.title, data.description, data.body]
+    );
 
-     return res.rows[0]
-   }
-   
-   
+    return res.rows[0];
+  }
 
+  /** PUT /[id]     update existing post
+   *
+   * { title, description, body }  =>  { id, title, description, body, votes }
+   *
+   */
+
+  static async updatePost(postId, data) {
+    const res = await db.query(
+      `UPDATE posts SET title=$1, description=$2, body=$3
+          WHERE id = $4
+          RETURNING id, title, description, body, votes`,
+      [data.title, data.description, data.body, postId]
+    );
+
+    const post = res.rows[0];
+
+    if (!post) {
+      throw new ExpressError(`There exists no post at '${id}'`, 404);
+    }
+
+    return post;
+  }
 }
 
 module.exports = Post;
