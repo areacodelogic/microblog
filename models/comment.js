@@ -39,6 +39,29 @@ class Comment {
 
     return result.rows[0];
   }
+
+  /** PUT /[id]      update comment
+   *
+   * => { id, text }
+   *
+   */
+
+  static async updateComment(commentId, data) {
+    const result = await db.query(
+      `UPDATE comments 
+          SET text=$1 
+          WHERE id = $2
+          RETURNING id, text`,
+      [data.text, commentId]
+    );
+
+    const comment = result.rows[0];
+    if (!comment) {
+      throw new ExpressError(`There exists no post at '${id}'`, 404);
+    }
+
+    return comment;
+  }
 }
 
 module.exports = Comment;
