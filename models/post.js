@@ -73,27 +73,25 @@ class Post {
     return details;
   }
 
+  /** POST /     add a new post
+   *
+   * { title, description, body }  =>  { id, title, description, body, votes }
+   *
+   */
 
+   static async addPost(data) {
+     const res = await db.query(
+       `INSERT INTO posts (title, description, body)
+          VALUES ($1, $2, $3)
+          RETURNING id, title, description, body, votes`,
+          [data.title, data.description, data.body]
+     );
 
+     return res.rows[0]
+   }
+   
+   
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 }
 
 module.exports = Post;

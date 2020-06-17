@@ -32,4 +32,20 @@ router.get('/:post_id', async function(req, res, next) {
 
 
 
+//@route POST api/posts
+//@desc add new post 
+
+router.post('/', async function(req, res, next) {
+  try {
+    const post = await Post.addPost(req.body);
+
+    return res.json(post)
+    
+  } catch (err) {
+    return next(err);
+  }
+})
+
+
+
 module.exports = router;
