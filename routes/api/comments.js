@@ -48,4 +48,16 @@ router.put('/:comment_id', async function (req, res, next) {
   }
 });
 
+//@route DELETE /api/posts/:post_id/comments/:comment_id
+//@desc delete comment by id
+
+router.delete('/:comment_id', async function (req, res, next) {
+  try {
+    await Comment.remove(req.params.comment_id);
+    return res.json({ message: 'deleted' });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 module.exports = router;

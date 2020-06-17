@@ -62,6 +62,24 @@ class Comment {
 
     return comment;
   }
+
+  /** DELETE /[id]      delete comment
+   *
+   * => { message: "deleted" }
+   *
+   */
+
+  static async remove(commentId) {
+    const result = await db.query(
+      `DELETE FROM comments WHERE id=$1
+        RETURNING id`,
+      [commentId]
+    );
+
+    if (result.rows.length === 0) {
+      throw new ExpressError(`There exists no comment ${commentId}`, 404);
+    }
+  }
 }
 
 module.exports = Comment;
