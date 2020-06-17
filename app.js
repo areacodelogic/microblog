@@ -4,7 +4,7 @@ const express = require('express');
 // const cors = require('cors');
 
 const postsRoutes = require('./routes/api/posts');
-
+const postCommentsRoutes = require('./routes/api/comments');
 
 const app = express();
 app.use(express.json());
@@ -16,6 +16,8 @@ app.use(express.json());
 /** Routes */
 
 app.use('/api/posts', postsRoutes);
+app.use('/api/posts/:post_id/comments', postCommentsRoutes);
+
 
 /** 404 Not Found handler. */
 

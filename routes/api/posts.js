@@ -1,7 +1,6 @@
 const express = require('express');
 const ExpressError = require('../../helpers/ExpressError');
 const Post = require('../../models/Post');
-// const { getNodeText } = require('@testing-library/react');
 
 const router = express.Router();
 
