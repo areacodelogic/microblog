@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, NavLink, Switch } from 'react-router-dom';
 import Home from './Home';
+import NewPost from '../containers/NewPost';
 
 
 import './App.css';
@@ -24,6 +25,7 @@ const App = () => {
 
       <Switch>
       <Route exact path="/" render={() => <Home />} />
+      <Route exact path="/new" render={(props) => <NewPost {...props} />} />
       
       </Switch>
 

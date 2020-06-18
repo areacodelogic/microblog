@@ -20,7 +20,8 @@ class Post {
       `SELECT p.id,
               p.title,
               p.description,
-              p.votes 
+              p.votes,
+              p.body
       FROM posts p
       ORDER BY p.id`
     );

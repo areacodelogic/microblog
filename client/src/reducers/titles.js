@@ -1,26 +1,15 @@
-import {GET_TITLES} from '../actions/types';
+import { GET_TITLES } from '../actions/types';
 
-const initialState = {
-  titles: []
-}
 
-export default function (state = initialState, action){
-  const {type, payload} = action;
 
-  switch(type){
+export default function (state = [], action) {
+  const { type, payload } = action;
+  switch (type) {
     case GET_TITLES:
-      return {
-        ...state,
-        titles: payload
-      }
-
+      
+      return [...action.titles];
+     
     default:
       return state;
   }
-
-
-
-
-
-
 }

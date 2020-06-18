@@ -1,43 +1,47 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { getTitles } from '../actions/titles';
-import PropTypes from 'prop-types';
-import "./TitleList.css"
+import { getTitlesFromAPI } from '../actions/titles';
 
-const TitleList = ({ getTitles, posts: { titles } }) => {
-  useEffect(() => {
-    getTitles();
-  }, [getTitles]);
+import './TitleList.css';
 
-  console.log(titles)
-  return (
-    <div className='row'>
-      {titles.map((title) => (
-        <div key={title.id} className='col'>
-          <div className='card'>
-            <div className='card-body'>
-              <div className='card-title'>
-                <Link to={'/' + title.id}>{title.title}</Link>
+class TitleList extends Component {
+  async componentDidMount() {
+    if (this.props.titles.length === 0) {
+      await this.props.getTitlesFromAPI();
+    }
+  }
+
+  render() {
+    return (
+      <div className='container'>
+        <div className='row'>
+          {this.props.titles.map((title) => (
+            <div key={title.id} className='col-6'>
+              <div className='card mb-3'>
+                <div className='card-body'>
+                  <div className='card-title'>
+                    <Link to={'/' + title.id}>{title.title}</Link>
+                  </div>
+                  <div className='card-text'>
+                    <i>{title.description}</i>
+                  </div>
+                  <div className='card-footer'>{title.votes} votes</div>
+                </div>
               </div>
-              <div className="card-text">{title.description}</div>
-              <div className="card-footer"><small>{title.votes} votes</small></div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
 
-TitleList.propTypes = {
-  getTitles: PropTypes.func.isRequired,
-  titles: PropTypes.object.isRequired,
-};
+function mapStateToProps(state) {
+  return {
+    titles: state.titles,
+  };
+}
 
-const mapStateToProps = (state) => ({
-  posts: state.titles,
-});
-
-export default connect(mapStateToProps, { getTitles })(TitleList);
+export default connect(mapStateToProps, { getTitlesFromAPI })(TitleList);

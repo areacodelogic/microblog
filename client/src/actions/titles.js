@@ -1,13 +1,21 @@
 import axios from 'axios';
-import { GET_TITLES } from './types';
+import {GET_TITLES} from './types';
+
 
 // GET TITLES
 
-export const getTitles = () => async (dispatch) => {
-  const res = await axios.get('api/posts');
+export function getTitlesFromAPI() {
+  return async function (dispatch) {
+    const response = await axios.get('api/posts');
+    return dispatch(getTitles(response.data));
+  };
+}
 
-  dispatch({
+function getTitles(titles) {
+  return {
     type: GET_TITLES,
-    payload: res.data,
-  });
-};
+    titles,
+  };
+}
+
+
