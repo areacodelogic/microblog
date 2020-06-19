@@ -12,11 +12,12 @@ export default function (state = [], action) {
     case ADD_POST:
       return [...state, makeTitleFromPost(action.post)];
 
-    
-    case VOTE: 
+    case VOTE:
       let votes = state.map(title => title.id === action.postId ? {...title, votes: action.votes} : title)
       return votes;
-      
+
+   
+
     default:
       return state;
   }

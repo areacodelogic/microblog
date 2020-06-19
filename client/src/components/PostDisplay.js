@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import './PostDisplay.css';
 
 class PostDisplay extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+ 
   render() {
     const { title, description, body, votes } = this.props.post;
     return (
       <div className='PostDisplay'>
         <div>
           <h2>{title}</h2>
-          <p>
+          <p className='py-3'>
             <i>{description}</i>
           </p>
           <div>{body}</div>
@@ -24,16 +21,22 @@ class PostDisplay extends Component {
               className='fas fa-edit text-primary'
               onClick={this.props.toggleEdit}
             />
-          </div>
-
-          <div className='PostDisplay-votes'>
             <i
-              className='fas fa-times text-danger'
+              className='fas fa-times text-danger p-3'
               onClick={this.props.delete}
             />
           </div>
-          <div>
-            <b>{votes} votes:</b>
+
+          <div className='PostDisplay-votes p-2'>
+            <i
+              className='fas fa-thumbs-up text-success p-2'
+              onClick={() => this.props.doVote('up')}
+            />
+            <b>{votes} votes</b>
+            <i
+              className='fas fa-thumbs-down text-danger p-2 '
+              onClick={() => this.props.doVote('down')}
+            />
           </div>
         </div>
       </div>

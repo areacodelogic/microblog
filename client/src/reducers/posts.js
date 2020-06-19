@@ -23,6 +23,9 @@ export default function rootReducer(state = {}, action) {
         ...state[action.postId], votes: action.votes
       }}
 
+
+      
+
     default:
       return state;
   }

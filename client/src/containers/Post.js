@@ -4,6 +4,7 @@ import {
   getPostFromAPI,
   removePostFromAPI,
   updatePostInAPI,
+  sendVoteToAPI
 } from '../actions/posts';
 import PostDisplay from '../components/PostDisplay';
 import PostForm from '../components/PostForm';
@@ -16,6 +17,7 @@ class Post extends Component {
     this.delete = this.delete.bind(this);
     this.edit = this.edit.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
+    this.vote = this.vote.bind(this);
   }
 
   async componentDidMount() {
@@ -32,14 +34,16 @@ class Post extends Component {
 
   edit({ title, description, body }) {
     this.props.updatePostInAPI(this.props.post.id, title, description, body);
-
     this.toggleEdit();
   }
 
   delete() {
     this.props.removePostFromAPI(this.props.post.id);
-    
     this.props.history.push('/');
+  }
+
+  vote(direction){
+    this.props.sendVoteToAPI(this.props.post.id, direction)
   }
 
   render() {
@@ -51,7 +55,7 @@ class Post extends Component {
         {this.state.isEditing ? (
           <PostForm post={post} save={this.edit} cancel={this.toggleEdit} />
         ) : (
-          <PostDisplay post={post} delete={this.delete} toggleEdit={this.toggleEdit}/>
+          <PostDisplay post={post} delete={this.delete} toggleEdit={this.toggleEdit} doVote={this.vote}/>
         )}
       </div>
     );
@@ -71,4 +75,5 @@ export default connect(mapStateToProps, {
   getPostFromAPI,
   removePostFromAPI,
   updatePostInAPI,
+  sendVoteToAPI
 })(Post);
