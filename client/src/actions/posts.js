@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_POST, ADD_POST, REMOVE_POST, UPDATE_POST, VOTE, ADD_COMMENT } from './types';
+import { GET_POST, ADD_POST, REMOVE_POST, UPDATE_POST, VOTE, ADD_COMMENT, REMOVE_COMMENT } from './types';
 
 
 
@@ -90,8 +90,8 @@ export function sendVoteToAPI(postId, direction){
 export function vote(postId, votes) {
   return {
     type: VOTE,
-    postId: postId,
-    votes: votes
+    postId,
+    votes
   }
 }
 
@@ -99,7 +99,7 @@ export function vote(postId, votes) {
 
 export function sendCommentToAPI(postId, text){
   return async function(dispatch){
-    const result = await axios.post(`api/posts/${postId}/comments`, {text});
+    const result = await axios.post(`/api/posts/${postId}/comments`, {text});
     return dispatch(addComment(postId, result.data))
   }
 }
@@ -107,8 +107,24 @@ export function sendCommentToAPI(postId, text){
 function addComment(postId, comment){
   return {
     type: ADD_COMMENT,
-    postId: postId,
+    postId,
     comment
   }
 }
- 
+
+// delete Comment
+
+export function removeCommentFromAPI(postId, commentId){
+  return async function (dispatch){
+    await axios.delete(`/api/posts/${postId}/comments/${commentId}`)
+    return dispatch(removeComment(postId, commentId))
+  }
+}
+
+function removeComment(postId, commentId){
+  return {
+    type: REMOVE_COMMENT,
+    postId,
+    commentId
+  }
+}

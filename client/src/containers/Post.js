@@ -5,7 +5,8 @@ import {
   removePostFromAPI,
   updatePostInAPI,
   sendVoteToAPI,
-  sendCommentToAPI
+  sendCommentToAPI,
+  removeCommentFromAPI,
 } from '../actions/posts';
 import PostDisplay from '../components/PostDisplay';
 import PostForm from '../components/PostForm';
@@ -17,11 +18,12 @@ class Post extends Component {
     super(props);
     this.state = { isEditing: false };
 
-    this.delete = this.delete.bind(this);
+    this.deletePost = this.deletePost.bind(this);
     this.edit = this.edit.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
     this.vote = this.vote.bind(this);
     this.addComment = this.addComment.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
   }
 
   async componentDidMount() {
@@ -41,17 +43,21 @@ class Post extends Component {
     this.toggleEdit();
   }
 
-  delete() {
+  deletePost() {
     this.props.removePostFromAPI(this.props.post.id);
     this.props.history.push('/');
   }
 
-  vote(direction){
-    this.props.sendVoteToAPI(this.props.post.id, direction)
+  vote(direction) {
+    this.props.sendVoteToAPI(this.props.post.id, direction);
   }
 
-  addComment(text){
-    this.props.sendCommentToAPI(this.props.post.id, text)
+  addComment(text) {
+    this.props.sendCommentToAPI(this.props.post.id, text);
+  }
+
+  deleteComment(commentId) {
+    this.props.removeCommentFromAPI(this.props.post.id, commentId);
   }
 
   render() {
@@ -63,14 +69,22 @@ class Post extends Component {
         {this.state.isEditing ? (
           <PostForm post={post} save={this.edit} cancel={this.toggleEdit} />
         ) : (
-          <PostDisplay post={post} delete={this.delete} toggleEdit={this.toggleEdit} doVote={this.vote}/>
+          <PostDisplay
+            post={post}
+            delete={this.deletePost}
+            toggleEdit={this.toggleEdit}
+            doVote={this.vote}
+          />
         )}
 
-        <section className="Post-comments">
-        <h4>Comments</h4>
-        <CommentList comments={post.comments} />
-        <CommentForm submitCommentForm={this.addComment} />
-        </section>
+        <div className='card Post-comments my-5'>
+          <h4 className='card-header'>Comments</h4>
+          <CommentList
+            comments={post.comments}
+            deleteComment={this.deleteComment}
+          />
+          <CommentForm submitCommentForm={this.addComment} />
+        </div>
       </div>
     );
   }
@@ -90,5 +104,6 @@ export default connect(mapStateToProps, {
   removePostFromAPI,
   updatePostInAPI,
   sendVoteToAPI,
-  sendCommentToAPI
+  sendCommentToAPI,
+  removeCommentFromAPI,
 })(Post);

@@ -6,13 +6,15 @@ class PostDisplay extends Component {
   render() {
     const { title, description, body, votes } = this.props.post;
     return (
-      <div className='PostDisplay'>
+      <div className='PostDisplay card'>
         <div>
-          <h2>{title}</h2>
-          <p className='py-3'>
-            <i>{description}</i>
-          </p>
-          <div>{body}</div>
+          <h2 className='card-header'>{title}</h2>
+          <div className='card-body'>
+            <p className='py-3'>
+              <i>{description}</i>
+            </p>
+            <div>{body}</div>
+          </div>
         </div>
 
         <div className='PostDisplay-right'>
