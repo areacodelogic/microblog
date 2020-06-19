@@ -25,6 +25,7 @@ export default function (state = [], action) {
       let posts = state.map((title) =>
         title.id === action.post.id ? makeTitleFromPost(action.post) : title
       );
+      return posts;
 
     default:
       return state;

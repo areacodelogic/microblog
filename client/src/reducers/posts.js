@@ -1,6 +1,7 @@
-import { ADD_POST, GET_POST, REMOVE_POST, UPDATE_POST, VOTE } from '../actions/types';
+import { ADD_POST, GET_POST, REMOVE_POST, UPDATE_POST, VOTE, ADD_COMMENT } from '../actions/types';
 
 export default function rootReducer(state = {}, action) {
+  
   switch (action.type) {
     case GET_POST:
       return { ...state, [action.post.id]: action.post };
@@ -23,8 +24,10 @@ export default function rootReducer(state = {}, action) {
         ...state[action.postId], votes: action.votes
       }}
 
-
-      
+    case ADD_COMMENT:
+      return { ...state, [action.postId]: {
+          ...state[action.postId], comments: [...state[action.postId].comments, action.comment]
+      }}
 
     default:
       return state;

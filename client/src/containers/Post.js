@@ -4,10 +4,13 @@ import {
   getPostFromAPI,
   removePostFromAPI,
   updatePostInAPI,
-  sendVoteToAPI
+  sendVoteToAPI,
+  sendCommentToAPI
 } from '../actions/posts';
 import PostDisplay from '../components/PostDisplay';
 import PostForm from '../components/PostForm';
+import CommentList from '../components/CommentList';
+import CommentForm from '../components/CommentForm';
 
 class Post extends Component {
   constructor(props) {
@@ -18,6 +21,7 @@ class Post extends Component {
     this.edit = this.edit.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
     this.vote = this.vote.bind(this);
+    this.addComment = this.addComment.bind(this);
   }
 
   async componentDidMount() {
@@ -46,6 +50,10 @@ class Post extends Component {
     this.props.sendVoteToAPI(this.props.post.id, direction)
   }
 
+  addComment(text){
+    this.props.sendCommentToAPI(this.props.post.id, text)
+  }
+
   render() {
     const post = this.props.post;
     if (!post) return <p>Loading</p>;
@@ -57,6 +65,12 @@ class Post extends Component {
         ) : (
           <PostDisplay post={post} delete={this.delete} toggleEdit={this.toggleEdit} doVote={this.vote}/>
         )}
+
+        <section className="Post-comments">
+        <h4>Comments</h4>
+        <CommentList comments={post.comments} />
+        <CommentForm submitCommentForm={this.addComment} />
+        </section>
       </div>
     );
   }
@@ -75,5 +89,6 @@ export default connect(mapStateToProps, {
   getPostFromAPI,
   removePostFromAPI,
   updatePostInAPI,
-  sendVoteToAPI
+  sendVoteToAPI,
+  sendCommentToAPI
 })(Post);

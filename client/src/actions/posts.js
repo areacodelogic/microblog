@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_POST, ADD_POST, REMOVE_POST, UPDATE_POST, VOTE } from './types';
+import { GET_POST, ADD_POST, REMOVE_POST, UPDATE_POST, VOTE, ADD_COMMENT } from './types';
 
 
 
@@ -78,10 +78,10 @@ function updatePost(post){
 
 // Vote
 
-export function sendVoteToAPI(id, direction){
+export function sendVoteToAPI(postId, direction){
   return async function (dispatch){
-    const response = await axios.post(`/api/posts/${id}/vote/${direction}`)
-    return dispatch(vote(id, response.data.votes))
+    const response = await axios.post(`/api/posts/${postId}/vote/${direction}`)
+    return dispatch(vote(postId, response.data.votes))
   }
 }
 
@@ -92,6 +92,23 @@ export function vote(postId, votes) {
     type: VOTE,
     postId: postId,
     votes: votes
+  }
+}
+
+// Add Comment 
+
+export function sendCommentToAPI(postId, text){
+  return async function(dispatch){
+    const result = await axios.post(`api/posts/${postId}/comments`, {text});
+    return dispatch(addComment(postId, result.data))
+  }
+}
+
+function addComment(postId, comment){
+  return {
+    type: ADD_COMMENT,
+    postId: postId,
+    comment
   }
 }
  
