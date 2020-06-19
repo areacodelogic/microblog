@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPostFromAPI } from '../actions/posts';
+import { getPostFromAPI, removePostFromAPI } from '../actions/posts';
 import PostDisplay from '../components/PostDisplay';
 
 
 class Post extends Component {
+  constructor(props){
+    super(props)
+    
+    this.delete = this.delete.bind(this);
+  }
  
 
   async componentDidMount() {
-    // if (!this.props.post) {
+    if (!this.props.post) {
       await this.props.getPostFromAPI(this.props.id);
+    }
     
+  }
+
+  delete(){
+    this.props.removePostFromAPI(this.props.post.id);
+    this.props.history.push('/')
   }
 
   render() {
@@ -19,7 +30,7 @@ class Post extends Component {
 
     return (
       <div className='Post'>
-        <PostDisplay  post={post} />
+        <PostDisplay  post={post} delete={this.delete}/>
       </div>
     );
   }
@@ -34,4 +45,4 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-export default connect(mapStateToProps, { getPostFromAPI })(Post);
+export default connect(mapStateToProps, { getPostFromAPI, removePostFromAPI })(Post);

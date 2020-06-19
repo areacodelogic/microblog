@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "./PostDisplay.css"
+import './PostDisplay.css';
 
 class PostDisplay extends Component {
   constructor(props) {
@@ -19,6 +19,9 @@ class PostDisplay extends Component {
         </div>
 
         <div className='PostDisplay-right'>
+          <div>
+            <i className='fas fa-times text-danger' onClick={this.props.delete} />
+          </div>
           <div>
             <b>{votes} votes:</b>
           </div>

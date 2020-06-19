@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_POST, ADD_POST } from './types';
+import { GET_POST, ADD_POST, REMOVE_POST } from './types';
 
 
 
@@ -51,3 +51,21 @@ function addPost(post) {
     post
   };
 }
+
+
+// Delete Post
+
+export function removePostFromAPI(id){
+  return async function (dispatch){
+    await axios.delete(`/api/posts/${id}`);
+    return dispatch(removePost(id))
+  }
+}
+
+function removePost(postId){
+  return {
+    type: REMOVE_POST,
+    postId
+  }
+}
+
