@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_POST, ADD_POST, REMOVE_POST, UPDATE_POST } from './types';
+import { GET_POST, ADD_POST, REMOVE_POST, UPDATE_POST, VOTE } from './types';
 
 
 
@@ -73,6 +73,25 @@ function updatePost(post){
   return {
     type: UPDATE_POST,
     post
+  }
+}
+
+// Vote
+
+export function sendVoteToAPI(id, direction){
+  return async function (dispatch){
+    const response = await axios.post(`/api/posts/${id}/vote/${direction}`)
+    return dispatch(vote(id, response.data.votes))
+  }
+}
+
+
+
+export function vote(postId, votes) {
+  return {
+    type: VOTE,
+    postId: postId,
+    votes: votes
   }
 }
  

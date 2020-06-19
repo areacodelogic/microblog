@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { getTitlesFromAPI } from '../actions/titles';
+import { sendVoteToAPI } from '../actions/posts';
 
 import './TitleList.css';
 
@@ -11,6 +12,10 @@ class TitleList extends Component {
     if (this.props.titles.length === 0) {
       await this.props.getTitlesFromAPI();
     }
+  }
+
+  vote(direction, id) {
+    this.props.sendVoteToAPI(id, direction);
   }
 
   render() {
@@ -27,7 +32,21 @@ class TitleList extends Component {
                   <div className='card-text'>
                     <i>{title.description}</i>
                   </div>
-                  <div className='card-footer'>{title.votes} votes</div>
+                  <div
+                    className='card-footer'
+                    style={{ color: 'darkblue' }}>
+                    {title.votes} votes
+                    <i
+                      className='fas fa-thumbs-up text-success ml-2'
+                      style={{ float: 'right', fontSize: '1.5rem' }}
+                      onClick={() => this.vote('up', title.id)}
+                    />
+                    <i
+                      className='fas fa-thumbs-down text-danger ml-2'
+                      style={{ float: 'right', fontSize: '1.5rem' }}
+                      onClick={() => this.vote('down', title.id)}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -44,4 +63,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getTitlesFromAPI })(TitleList);
+export default connect(mapStateToProps, { getTitlesFromAPI, sendVoteToAPI })(
+  TitleList
+);

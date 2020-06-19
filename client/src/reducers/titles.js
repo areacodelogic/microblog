@@ -1,4 +1,4 @@
-import { GET_TITLES, ADD_POST} from '../actions/types';
+import { GET_TITLES, ADD_POST, VOTE} from '../actions/types';
 
 
 function makeTitleFromPost({ id, title, description, votes }) {
@@ -12,6 +12,11 @@ export default function (state = [], action) {
     case ADD_POST:
       return [...state, makeTitleFromPost(action.post)];
 
+    
+    case VOTE: 
+      let votes = state.map(title => title.id === action.postId ? {...title, votes: action.votes} : title)
+      return votes;
+      
     default:
       return state;
   }
