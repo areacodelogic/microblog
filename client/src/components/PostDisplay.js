@@ -19,8 +19,18 @@ class PostDisplay extends Component {
         </div>
 
         <div className='PostDisplay-right'>
-          <div>
-            <i className='fas fa-times text-danger' onClick={this.props.delete} />
+          <div className='PostDisplay-edit'>
+            <i
+              className='fas fa-edit text-primary'
+              onClick={this.props.toggleEdit}
+            />
+          </div>
+
+          <div className='PostDisplay-votes'>
+            <i
+              className='fas fa-times text-danger'
+              onClick={this.props.delete}
+            />
           </div>
           <div>
             <b>{votes} votes:</b>

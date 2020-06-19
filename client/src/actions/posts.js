@@ -1,17 +1,7 @@
 import axios from 'axios';
-import { GET_POST, ADD_POST, REMOVE_POST } from './types';
+import { GET_POST, ADD_POST, REMOVE_POST, UPDATE_POST } from './types';
 
 
-
-// const API_URL = 'http://localhost:3000/api/posts';
-
-// export function getPostFromAPI(id) {
-//   return async function (dispatch) {
-//     const response = await axios.get(`${API_URL}/${id}`);
-//     console.log('resposne', response)
-//     return dispatch(getPost(response.data));
-//   };
-// }
 
 // GET post
 
@@ -69,3 +59,20 @@ function removePost(postId){
   }
 }
 
+// Update Post
+
+export function updatePostInAPI(id, title, description, body){
+  return async function(dispatch){
+    const response = await axios.put(`/api/posts/${id}`, {title, description, body} );
+    return dispatch(updatePost(response.data))
+
+  } 
+}
+
+function updatePost(post){
+  return {
+    type: UPDATE_POST,
+    post
+  }
+}
+ 
