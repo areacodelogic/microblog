@@ -1,6 +1,18 @@
 import axios from 'axios';
 import { GET_POST, ADD_POST } from './types';
 
+
+
+// const API_URL = 'http://localhost:3000/api/posts';
+
+// export function getPostFromAPI(id) {
+//   return async function (dispatch) {
+//     const response = await axios.get(`${API_URL}/${id}`);
+//     console.log('resposne', response)
+//     return dispatch(getPost(response.data));
+//   };
+// }
+
 // GET post
 
 export function getPostFromAPI(id) {
@@ -10,10 +22,12 @@ export function getPostFromAPI(id) {
   };
 }
 
+
+
 function getPost(post) {
   return {
     type: GET_POST,
-    post,
+    post
   };
 }
 

@@ -11,11 +11,12 @@ class NewPost extends Component {
   }
 
   add({ title, description, body }) {
-    this.props.sendPostToApi(title, description, body)
+    this.props.sendPostToAPI(title, description, body);
+    this.props.history.push('/')
   }
 
   cancel() {
-    this.propshistory.push('/');
+    this.props.history.push('/');
   }
   render() {
     return (
