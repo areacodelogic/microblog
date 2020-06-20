@@ -1,6 +1,5 @@
 const db = require('../db');
 const ExpressError = require('../helpers/ExpressError');
-const { post } = require('../routes/api/posts');
 
 class Comment {
   /** GET /        get comments for post

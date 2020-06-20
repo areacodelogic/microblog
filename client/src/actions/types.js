@@ -6,4 +6,5 @@ export const UPDATE_POST = 'UPDATE_POST';
 export const VOTE = "VOTE";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
-
+export const GET_COMMENT = "GET_COMMENT"
+export const ERROR = "ERROR"

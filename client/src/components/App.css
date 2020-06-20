@@ -1,3 +1,17 @@
 nav a { margin-right: 1em; }
 
 nav a.active { font-weight: bold; }
+
+
+body {
+  background: url("https://images.pexels.com/photos/965117/pexels-photo-965117.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+  
+
+    background-repeat: no-repeat;
+    background-size: 150vh;
+    
+    
+    
+    
+
+}

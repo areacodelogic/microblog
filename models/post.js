@@ -134,14 +134,14 @@ class Post {
    */
   static async addLike(postId, delta) {
     const result = await db.query(
-      "UPDATE posts SET votes=votes + $1 WHERE id = $2 RETURNING votes",
+      'UPDATE posts SET votes=votes + $1 WHERE id = $2 RETURNING votes',
       [delta, postId]
     );
 
-    const like = result.rows[0]
+    const like = result.rows[0];
 
-    if(!like) {
-      throw new ExpressError(`There exists no post ${postId}`)
+    if (!like) {
+      throw new ExpressError(`There exists no post ${postId}`);
     }
 
     return result.rows[0];

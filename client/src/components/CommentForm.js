@@ -23,9 +23,11 @@ class CommentForm extends Component {
     });
   }
 
+
+
   render() {
     return (
-      <div className="container">
+      <div className='container'>
         <form onSubmit={this.handleSubmit}>
           <div className='form-group '>
             <input

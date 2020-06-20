@@ -7,6 +7,7 @@ import {
   sendVoteToAPI,
   sendCommentToAPI,
   removeCommentFromAPI,
+  getCommentsFromAPI,
 } from '../actions/posts';
 import PostDisplay from '../components/PostDisplay';
 import PostForm from '../components/PostForm';
@@ -16,7 +17,10 @@ import CommentForm from '../components/CommentForm';
 class Post extends Component {
   constructor(props) {
     super(props);
-    this.state = { isEditing: false };
+    this.state = {
+      isEditing: false,
+      comments: [],
+    };
 
     this.deletePost = this.deletePost.bind(this);
     this.edit = this.edit.bind(this);
@@ -77,11 +81,12 @@ class Post extends Component {
           />
         )}
 
-        <div className='card Post-comments my-5'>
+        <div className='card Post-comments mt-4'>
           <h4 className='card-header'>Comments</h4>
           <CommentList
             comments={post.comments}
             deleteComment={this.deleteComment}
+            commentButton={this.getComments}
           />
           <CommentForm submitCommentForm={this.addComment} />
         </div>
@@ -106,4 +111,5 @@ export default connect(mapStateToProps, {
   sendVoteToAPI,
   sendCommentToAPI,
   removeCommentFromAPI,
+  getCommentsFromAPI,
 })(Post);

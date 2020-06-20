@@ -10,13 +10,17 @@ class Comment extends Component {
     this.props.deleteComment(this.props.id);
   }
   render() {
+   
     return (
+      
       <div className="ml-1 mt-2">
         <p>
+        {this.props.deleteComment && 
           <i
             className='fa fa-times text-danger mx-2'
             onClick={this.handleDelete}
           />
+        }
           {this.props.text}
         </p>
       </div>

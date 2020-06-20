@@ -3,7 +3,6 @@ const db = require('../../db');
 
 const ExpressError = require('../../helpers/ExpressError');
 const Comment = require('../../models/Comment');
-const { put } = require('../../app');
 
 const router = express.Router({ mergeParams: true });
 
@@ -19,18 +18,40 @@ router.get('/', async function (req, res, next) {
   }
 });
 
+
+
 //@route POST /api/posts/:post_id/comments
 //@desc add a comment for a post
 
+// router.post('/', async function (req, res, next) {
+//   try {
+//     const comment =  await Comment.addComment(req.body, req.params.post_id);
+
+//     return res.json({ comment });
+//   } catch (err) {
+//     return next(err);
+//   }
+// });
+
+
+
 router.post('/', async function (req, res, next) {
   try {
-    const comment = await Comment.addComment(req.body, req.params.post_id);
-
-    return res.json({ comment });
+    const result = await db.query(
+      `INSERT INTO comments (text, post_id) VALUES ($1, $2) 
+        RETURNING id, text`,
+      [req.body.text, req.params.post_id]
+    );
+    return res.json(result.rows[0]);
   } catch (err) {
     return next(err);
   }
 });
+
+
+
+
+
 
 //@route PUT /api/posts/:post_id/comments/:comment_id
 //@desc update comment by id

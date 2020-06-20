@@ -6,10 +6,21 @@ import {
   VOTE,
   ADD_COMMENT,
   REMOVE_COMMENT,
+  ERROR,
+  GET_COMMENT
 } from '../actions/types';
 
-export default function rootReducer(state = {}, action) {
+const initialState = {
+
+}
+
+export default function (state = initialState, action) {
+
   switch (action.type) {
+    case ERROR:
+      console.log('THIS IS THE ERROR', action.error);
+      return { ...state };
+
     case GET_POST:
       return { ...state, [action.post.id]: action.post };
 
@@ -40,6 +51,7 @@ export default function rootReducer(state = {}, action) {
       };
 
     case ADD_COMMENT:
+      
       return {
         ...state,
         [action.postId]: {
@@ -48,6 +60,15 @@ export default function rootReducer(state = {}, action) {
         },
       };
 
+ 
+    case GET_COMMENT: 
+      return {
+          ...state, [action.postId]: {
+            ...state[action.postId], 
+            comments: action.comments
+          }
+        }
+      
     case REMOVE_COMMENT:
       return {
         ...state,
