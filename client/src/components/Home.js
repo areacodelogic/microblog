@@ -4,7 +4,7 @@ import TitleList from '../containers/TitleList';
 const Home = () => {
   return (
     <div>
-      <div>
+      <div className='Home'>
         <p>
           Welcome to <b>Microblog</b>, our innovative site for communicating on
           the information superhighway.

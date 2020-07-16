@@ -1,17 +1,22 @@
-nav a { margin-right: 1em; }
+nav a {
+  margin-right: 1em;
+}
 
-nav a.active { font-weight: bold; }
+nav a.active {
+  font-weight: bold;
+}
 
+.Home{
+  color: white;
+  font-size: 25px;
+   text-shadow: 1px 1px 3px #0c0b0c
+}
 
 body {
-  background: url("https://images.pexels.com/photos/965117/pexels-photo-965117.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
-  
-
-    background-repeat: no-repeat;
-    background-size: 150vh;
-    
-    
-    
-    
-
+  background:  linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('https://blush.ly/6ZORbKkLc/p?bg=ece2b2') no-repeat center center fixed;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover; 
 }
+

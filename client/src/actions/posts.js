@@ -144,27 +144,6 @@ function addComment(postId, comment) {
   };
 }
 
-// Get Comments
-
-export function getCommentsFromAPI(postId) {
-  return async function (dispatch) {
-    try {
-      const result = await axios.get(`api/posts/${postId}/comments`);
-      dispatch(getComments(postId, result.data));
-    } catch (err) {
-      dispatch(handleError(err));
-    }
-  };
-}
-
-function getComments(postId, comments) {
-  return {
-    type: GET_COMMENT,
-    postId: postId,
-    comments,
-  };
-}
-
 // delete Comment
 
 export function removeCommentFromAPI(postId, commentId) {

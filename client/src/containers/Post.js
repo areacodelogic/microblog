@@ -7,7 +7,6 @@ import {
   sendVoteToAPI,
   sendCommentToAPI,
   removeCommentFromAPI,
-  getCommentsFromAPI,
 } from '../actions/posts';
 import PostDisplay from '../components/PostDisplay';
 import PostForm from '../components/PostForm';
@@ -31,9 +30,11 @@ class Post extends Component {
   }
 
   async componentDidMount() {
+
     if (!this.props.post) {
       await this.props.getPostFromAPI(this.props.id);
     }
+    
   }
 
   toggleEdit() {
@@ -111,5 +112,4 @@ export default connect(mapStateToProps, {
   sendVoteToAPI,
   sendCommentToAPI,
   removeCommentFromAPI,
-  getCommentsFromAPI,
 })(Post);

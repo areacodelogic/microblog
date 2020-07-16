@@ -7,15 +7,11 @@ import {
   ADD_COMMENT,
   REMOVE_COMMENT,
   ERROR,
-  GET_COMMENT
 } from '../actions/types';
 
-const initialState = {
-
-}
+const initialState = {};
 
 export default function (state = initialState, action) {
-
   switch (action.type) {
     case ERROR:
       console.log('THIS IS THE ERROR', action.error);
@@ -51,7 +47,9 @@ export default function (state = initialState, action) {
       };
 
     case ADD_COMMENT:
-      
+        const newStates = { ...state };
+        console.log(newStates[action.postId].comments);
+
       return {
         ...state,
         [action.postId]: {
@@ -60,15 +58,6 @@ export default function (state = initialState, action) {
         },
       };
 
- 
-    case GET_COMMENT: 
-      return {
-          ...state, [action.postId]: {
-            ...state[action.postId], 
-            comments: action.comments
-          }
-        }
-      
     case REMOVE_COMMENT:
       return {
         ...state,
@@ -79,6 +68,8 @@ export default function (state = initialState, action) {
           ),
         },
       };
+
+   
 
     default:
       return state;
