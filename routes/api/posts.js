@@ -1,5 +1,4 @@
 const express = require('express');
-const ExpressError = require('../../helpers/ExpressError');
 const Post = require('../../models/Post');
 
 const router = express.Router();

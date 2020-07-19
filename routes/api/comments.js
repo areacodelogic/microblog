@@ -1,7 +1,6 @@
 const express = require('express');
 const db = require('../../db');
 
-const ExpressError = require('../../helpers/ExpressError');
 const Comment = require('../../models/Comment');
 
 const router = express.Router({ mergeParams: true });
