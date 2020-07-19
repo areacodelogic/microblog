@@ -1,6 +1,6 @@
 const express = require('express');
 
-// const ExpressError = require('./helpers/ExpressError');
+const ExpressError = require('./helpers/ExpressError');
 // const cors = require('cors');
 
 const postsRoutes = require('./routes/api/posts');

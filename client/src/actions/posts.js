@@ -11,11 +11,14 @@ import {
 } from './types';
 
 // GET post
+const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:5000';
+
+
 
 export function getPostFromAPI(id) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`/api/posts/${id}`);
+      const response = await axios.get(`${BASE_URL}/api/posts/${id}`);
       return dispatch(getPost(response.data));
     } catch (err) {
       dispatch(handleError(err));
@@ -35,7 +38,7 @@ function getPost(post) {
 export function sendPostToAPI(title, description, body) {
   return async function (dispatch) {
     try {
-      const response = await axios.post(`/api/posts`, {
+      const response = await axios.post(`${BASE_URL}/api/posts`, {
         title,
         description,
         body,
@@ -59,7 +62,7 @@ function addPost(post) {
 export function removePostFromAPI(id) {
   return async function (dispatch) {
     try {
-      await axios.delete(`/api/posts/${id}`);
+      await axios.delete(`${BASE_URL}/api/posts/${id}`);
       return dispatch(removePost(id));
     } catch (err) {
       dispatch(handleError(err));
@@ -79,7 +82,7 @@ function removePost(postId) {
 export function updatePostInAPI(id, title, description, body) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(`/api/posts/${id}`, {
+      const response = await axios.put(`${BASE_URL}/api/posts/${id}`, {
         title,
         description,
         body,
@@ -104,7 +107,7 @@ export function sendVoteToAPI(postId, direction) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `/api/posts/${postId}/vote/${direction}`
+        `${BASE_URL}/api/posts/${postId}/vote/${direction}`
       );
       return dispatch(vote(postId, response.data.votes));
     } catch (err) {
@@ -126,9 +129,12 @@ export function vote(postId, votes) {
 export function sendCommentToAPI(postId, text) {
   return async function (dispatch) {
     try {
-      const result = await axios.post(`/api/posts/${postId}/comments/`, {
-        text,
-      });
+      const result = await axios.post(
+        `${BASE_URL}/api/posts/${postId}/comments/`,
+        {
+          text,
+        }
+      );
       dispatch(addComment(postId, result.data));
     } catch (err) {
       dispatch(handleError(err));
@@ -149,7 +155,9 @@ function addComment(postId, comment) {
 export function removeCommentFromAPI(postId, commentId) {
   return async function (dispatch) {
     try {
-      await axios.delete(`/api/posts/${postId}/comments/${commentId}`);
+      await axios.delete(
+        `${BASE_URL}/api/posts/${postId}/comments/${commentId}`
+      );
       return dispatch(removeComment(postId, commentId));
     } catch (err) {
       dispatch(handleError(err));
